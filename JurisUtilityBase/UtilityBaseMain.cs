@@ -128,7 +128,7 @@ namespace JurisUtilityBase
                 {
                     sql = " update client set CliExpCodeXref = '" + XRefTo + "' where CliExpCodeXref = '" + XRefFrom + "'";
                     _jurisUtility.ExecuteNonQuery(0, sql);
-                    sql = " update matter set MatExpCodeXref = '" + XRefTo + "' where MatExpCodeXref = = '" + XRefFrom + "'";
+                    sql = " update matter set MatExpCodeXref = '" + XRefTo + "' where MatExpCodeXref = '" + XRefFrom + "'";
                     _jurisUtility.ExecuteNonQuery(0, sql);
 
                 }
@@ -305,16 +305,18 @@ namespace JurisUtilityBase
             DataSet myRSFS = _jurisUtility.RecordsetFromSQL(SQLFS);
 
             if (myRSFS.Tables[0].Rows.Count == 0)
-                cbFrom.SelectedIndex = 0;
+                MessageBox.Show("This Firm has no XRefs", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
+                cbFrom.ClearItems();
+                cbTo.ClearItems();
                 foreach (DataRow dr in myRSFS.Tables[0].Rows)
                 {
                     FSIndex = dr["FS"].ToString();
                     cbFrom.Items.Add(FSIndex);
                     cbTo.Items.Add(FSIndex);
                 }
-                cbFrom.Items.Add("None" + "  " +  "Blank");
+                cbFrom.Items.Add("None" + "  " + "Blank");
                 cbTo.Items.Add("None" + "  " + "Blank");
             }
 
